@@ -8,6 +8,9 @@ import 'dotenv/config';
 const blog = express();
 const port = process.env.PORT;
 
+// Express Settings
+blog.set('trust proxy', true)
+
 // Middleware
 blog.use(express.json()) // for parsing application/json
 blog.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded

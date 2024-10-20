@@ -3,34 +3,22 @@ import Utilities from './utilities.js';
 import axios from 'axios';
 
 export const postHandler = {
-    createPost() {
+    async createPost() {
 
     },
-    getPosts() {
+    async getPosts() {
 
     },
-    getPost() {
+    async getPost(id) {
 
     },
-    editPost() {
+    async editPost(id) {
 
     },
-    deletePost() {
+    async deletePost(id) {
 
     },
-    deletePosts() {
+    async deletePosts() {
 
     }
 } 
-
-export const fileHandler = {
-    appendFile() {
-
-    },
-    getFile() {
-
-    },
-    editFile() {
-
-    }
-}
