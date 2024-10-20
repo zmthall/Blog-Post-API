@@ -1,3 +1,10 @@
+function throwError(type, message, status) {
+    const error = new Error(message);
+    error.status = status;
+    error.type = type;
+    throw error;
+}
+
 function PostID(min = 100000, max = 999999) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
@@ -22,36 +29,79 @@ function LogDate() {
     return (new Date()).toISOString();
 }
 
-export class PostEvent {
-    constructor(type, status, body) {
-        this.type = type;
-        this.status = status;
-        this.body = body;
+export class SuccessEvent {
+    constructor(type, status, data) {
+        if(typeof type === 'string')
+            this.type = type;
+        else throwError('PostEvent', 'Type is not in correct format.', 400);
+
+        if(typeof status === 'number')
+            this.status = status;
+        else throwError('PostEvent', 'Status is not in correct format.', 400);
+
+        if(typeof body === 'object')
+            this.data = data;
+        else throwError('PostEvent', 'Body is not in correct format.', 400);
+
         this.timeStamp = LogDate();
-        this.data = JSON.stringify(this);
+        this.dataSTR = JSON.stringify(this);
+    }
+}
+
+export class ErrorEvent {
+    constructor(type, status, error) {
+        if(typeof type === 'string')
+            this.type = type;
+        else throwError('ErrorEvent', 'Type is not in correct format.', 400);
+
+        if(typeof status === 'number')
+            this.status = status;
+        else throwError('ErrorEvent', 'Status is not in correct format.', 400);
+
+        if(typeof error === 'object')
+            this.error = error;
+        else throwError('ErrorEvent', 'Erorr is not in correct format', 400);
+
+        this.timeStamp = LogDate();
+        this.dataSTR = JSON.stringify(this);
     }
 }
 
 export class Log {
     constructor(event, ip) {
         this.timeStamp = LogDate();
-        this.event = event;
-        this.ip = ip;
-        this.data = JSON.stringify(this);
+        if(typeof event === 'string')
+            this.event = event;
+        else throwError('Log', 'Event is not in correct format.', 400)
+
+        if(typeof ip === 'string')
+            this.ip = ip;
+        else throwError('Log', 'IP is not in correct format.', 400)
+        this.dataSTR = JSON.stringify(this);
     }
 }
 
 export class Post {
     constructor(title, author, content, tags) {
-        this.postID = PostID();
-        this.title = title;
-        this.cAuthor = author;
-        this.content = content;
-        this.author = author;
-        this.timeStamp = PostDate();
-        this.tags = tags;
-        this.data = JSON.stringify(this);
-        this.post = this;
-    }
+            if(typeof title === 'string' && title.length <= 50)
+                this.title = title;
+            else throwError('Post', 'Title is not in correct format.', 400);
+            
+            if(typeof author === 'string') {
+                this.cAuthor = author;
+                this.author = author;
+            } else  throwError('Post', 'Author is not in correct format.', 400);
 
+            if(typeof content === 'string' && content.length <= 2000)
+                this.content = content;
+            else throwError('Post', 'Content is not in correct format.', 400);
+    
+            if(tags.length <= 10 && tags.every(tag => tag.length <= 5)) {
+                this.tags = tags;
+            } else throwError('Post', 'Tags are not properly set.', 400);
+            
+            this.id = PostID();
+            this.timeStamp = PostDate();
+            this.dataSTR = JSON.stringify(this);
+    }
 }
