@@ -7,8 +7,7 @@ const router = express.Router();
 
 // CREATE/POST new post. This post will be appended to the current posts.
 router.post('/post', async (req, res) => {
-    // console.log(Utilities.getFilePath())
-    Utilities.appendFile({testing: 'testing how this works', test: 'this will be the test'}, Utilities.getFilePath())
+    console.log(await postHandler.createPost('testing title', 'testing author', 'testing content'))
 })
 
 // GET all posts. These posts can then be paginated if necessary.

@@ -30,7 +30,7 @@ function LogDate() {
 }
 
 export class SuccessEvent {
-    constructor(type, status, data) {
+    constructor(type, status, message, data) {
         if(typeof type === 'string')
             this.type = type;
         else throwError('SuccessEvent', 'Type is not in correct format.', 400);
@@ -43,14 +43,17 @@ export class SuccessEvent {
             this.data = data;
         else throwError('SuccessEvent', 'Body is not in correct format.', 400);
 
+        if(typeof message === 'string')
+            this.message = message;
+        else throwError('SuccessEvent', 'Message is not in correct format.', 400);
+
         this.timeStamp = LogDate();
         this.dataSTR = JSON.stringify(this);
-        this.message = 'Success';
     }
 }
 
 export class ErrorEvent {
-    constructor(type, status, message, error) {
+    constructor(type, status, message) {
         if(typeof type === 'string')
             this.type = type;
         else throwError('ErrorEvent', 'Type is not in correct format.', 400);
@@ -58,10 +61,6 @@ export class ErrorEvent {
         if(typeof status === 'number')
             this.status = status;
         else throwError('ErrorEvent', 'Status is not in correct format.', 400);
-
-        if(typeof error === 'object')
-            this.error = error;
-        else throwError('ErrorEvent', 'Erorr is not in correct format', 400);
 
         if(typeof message === 'string')
             this.message = message;
