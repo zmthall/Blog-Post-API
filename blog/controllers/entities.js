@@ -33,15 +33,15 @@ export class SuccessEvent {
     constructor(type, status, data) {
         if(typeof type === 'string')
             this.type = type;
-        else throwError('PostEvent', 'Type is not in correct format.', 400);
+        else throwError('SuccessEvent', 'Type is not in correct format.', 400);
 
         if(typeof status === 'number')
             this.status = status;
-        else throwError('PostEvent', 'Status is not in correct format.', 400);
+        else throwError('SuccessEvent', 'Status is not in correct format.', 400);
 
         if(typeof body === 'object')
             this.data = data;
-        else throwError('PostEvent', 'Body is not in correct format.', 400);
+        else throwError('SuccessEvent', 'Body is not in correct format.', 400);
 
         this.timeStamp = LogDate();
         this.dataSTR = JSON.stringify(this);
