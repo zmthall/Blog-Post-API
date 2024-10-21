@@ -30,11 +30,8 @@ export const postHandler = {
             let editedPost;
             const editedPosts = data.map(post => {
                 if(post.id === id) {
-                    console.log(post)
                     const oldPost = new Post(post);
-                    // console.log(oldPost)
                     editedPost = oldPost.editPost(newPost);
-                    // console.log(oldPost)
                     return editedPost;
                 } else return new Post(post);
             });

@@ -20,8 +20,6 @@ router.post('/post', async (req, res) => {
     } catch (error) {
         res.status(error.status).json(new ErrorEvent(error));
     }
-    // const test = await postHandler.deletePost(176451);
-    // const test = await postHandler.deletePosts();
 })
 
 // GET all posts. These posts can then be paginated if necessary.
