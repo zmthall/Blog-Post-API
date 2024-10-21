@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start_blog": "doppler run --mount .env -- nodemon ./blog/blog.js",
-    "start_app": "doppler run --mount .env -- nodemon ./app/app.js"
+    "start_blog": "nodemon ./blog/blog.js",
+    "start_app": "nodemon ./app/app.js"
   },
   "keywords": [],
   "author": "",
